@@ -1,0 +1,22 @@
+{
+  "name": "comp397-w2020-lesson2c",
+  "version": "1.0.0",
+  "description": "demo lesson 2",
+  "main": "game.js",
+  "author": "Michael Pho",
+  "license": "",
+  "dependencies": {
+    "createjs": "^1.0.1",
+    "easejs": "^0.2.9",
+    "preloadjs": "^1.0.1",
+    "soundjs": "^1.0.1",
+    "tweenjs": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/easeljs": "^1.0.0",
+    "@types/preloadjs": "^0.6.32",
+    "@types/soundjs": "^0.6.27",
+    "@types/tweenjs": "^1.0.0",
+    "easeljs": "^1.0.2"
+  }
+}
