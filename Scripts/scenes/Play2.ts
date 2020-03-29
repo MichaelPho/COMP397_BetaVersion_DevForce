@@ -112,8 +112,8 @@ module scenes
              // PRESS LEFT ARROW
              if (e.keyCode == 37 ) {
                  if(this.bullet.position.y==this.master.position.y)
-                 {this.bullet.position.x-=0.05;}
-                 this.master.x-=0.05;
+                 {this.bullet.position.x-=0.03;}
+                 this.master.x-=0.03;
                  console.log("go left ");
              }
              // // PRESS UP ARROW
@@ -123,8 +123,8 @@ module scenes
              // PRESS RIGHT ARROW
              else if (e.keyCode == 39) {
                  if(this.bullet.position.y==this.master.position.y)
-                 {this.bullet.position.x+=0.05;}
-                 this.master.x+=0.05;
+                 {this.bullet.position.x+=0.03;}
+                 this.master.x+=0.03;
                  console.log("go right ");
                 
                 
@@ -134,9 +134,9 @@ module scenes
              //     window.alert("Down Key Pressed");
              // }
              // PRESS SPACE BAR
-             else if (e.keyCode == 32) {
-                 window.alert("Space Key Pressed");
-             }
+            //  else if (e.keyCode == 32) {
+            //      window.alert("Space Key Pressed");
+            //  }
            
 
 
@@ -147,7 +147,7 @@ module scenes
              // this.bullet.start=true;
              const onClick = (e: MouseEvent) => {
                  if(this.bullet.position.y==this.master.position.y) {
-                 let x = this.master.x + 630 - e.clientX;
+                 let x = this.master.x - e.clientX;
                  let y = this.master.y - e.clientY;
                  let l = Math.sqrt(x * x + y * y);
 
@@ -230,7 +230,16 @@ module scenes
                     console.log("enemy out");
                 }, i*8000);
             i++;
-            }  
+            for (const en of this.enemy2) {
+                setTimeout(() => {
+                   
+                  en.StartRun();
+                    this.addChild(en);
+                    console.log("enemy out");
+                }, i*10000);
+            i++;
+            }
+              
             }  
             this.addChild(this.master);
             this.addChild(this.bullet);

@@ -77,9 +77,9 @@ var scenes;
                 // PRESS LEFT ARROW
                 if (e.keyCode == 37) {
                     if (_this.bullet.position.y == _this.master.position.y) {
-                        _this.bullet.position.x -= 0.05;
+                        _this.bullet.position.x -= 0.03;
                     }
-                    _this.master.x -= 0.05;
+                    _this.master.x -= 0.03;
                     console.log("go left ");
                 }
                 // // PRESS UP ARROW
@@ -89,9 +89,9 @@ var scenes;
                 // PRESS RIGHT ARROW
                 else if (e.keyCode == 39) {
                     if (_this.bullet.position.y == _this.master.position.y) {
-                        _this.bullet.position.x += 0.05;
+                        _this.bullet.position.x += 0.03;
                     }
-                    _this.master.x += 0.05;
+                    _this.master.x += 0.03;
                     console.log("go right ");
                 }
                 // // PRESS DOWN ARROW
@@ -99,14 +99,14 @@ var scenes;
                 //     window.alert("Down Key Pressed");
                 // }
                 // PRESS SPACE BAR
-                else if (e.keyCode == 32) {
-                    window.alert("Space Key Pressed");
-                }
+                //  else if (e.keyCode == 32) {
+                //      window.alert("Space Key Pressed");
+                //  }
             };
             // this.bullet.start=true;
             var onClick = function (e) {
                 if (_this.bullet.position.y == _this.master.position.y) {
-                    var x = _this.master.x + 630 - e.clientX;
+                    var x = _this.master.x - e.clientX;
                     var y = _this.master.y - e.clientY;
                     var l = Math.sqrt(x * x + y * y);
                     // objects.Vector2.angle(new objects.Vector2(this.master.x,this.master.y),new objects.Vector2(this.master.x,this.master.y))
@@ -161,20 +161,32 @@ var scenes;
                         console.log("enemy out");
                     }, i * 8000);
                     i++;
+                    var _loop_3 = function (en_2) {
+                        setTimeout(function () {
+                            en_2.StartRun();
+                            _this.addChild(en_2);
+                            console.log("enemy out");
+                        }, i * 10000);
+                        i++;
+                    };
+                    for (var _i = 0, _a = this_1.enemy2; _i < _a.length; _i++) {
+                        var en_2 = _a[_i];
+                        _loop_3(en_2);
+                    }
                 };
                 for (var _i = 0, _a = this_1.enemy2; _i < _a.length; _i++) {
                     var en_1 = _a[_i];
                     _loop_2(en_1);
                 }
+                this_1.addChild(this_1.master);
+                this_1.addChild(this_1.bullet);
+                this_1.addChild(this_1.status);
             };
             var this_1 = this;
             for (var _i = 0, _a = this.enemy; _i < _a.length; _i++) {
                 var en = _a[_i];
                 _loop_1(en);
             }
-            this.addChild(this.master);
-            this.addChild(this.bullet);
-            this.addChild(this.status);
         };
         Play2.prototype.Kill = function (a) {
             if (a) {

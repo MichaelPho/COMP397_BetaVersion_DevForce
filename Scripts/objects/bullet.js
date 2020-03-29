@@ -86,9 +86,16 @@ var objects;
         bullet.prototype._checkBounds = function (position) {
             if (position === void 0) { position = new objects.Vector2(370, 880); }
             if (this.y < 400 || this.y > 1000 || this.x > 720 || this.x < 0) {
-                console.log("changed x: " + position.x + " y: " + position.y);
+                // console.log("changed x: "+position.x +" y: "+position.y);
                 this.Reset(position);
             }
+        };
+        bullet.prototype.CheckBounds = function () {
+            if (this.y < 400 || this.y > 1000 || this.x > 720 || this.x < 0) {
+                console.log("changed x: " + this.x + " y: " + this.y);
+                return true;
+            }
+            return false;
         };
         bullet.prototype._move = function () {
             //  this.position = Vector2.add(this.position, this.velocity);

@@ -3,6 +3,8 @@
 let Game = (function(){
 
     // variable declarations
+    
+    
     let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
     let stage:createjs.Stage;
     
@@ -35,6 +37,7 @@ let Game = (function(){
 
     function Preload():void
     {
+       
         assets = new createjs.LoadQueue(); // asset container
         config.Game.ASSETS = assets; // make a reference to the assets in the global config
         assets.installPlugin(createjs.Sound); // supports sound preloading

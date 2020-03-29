@@ -90,9 +90,18 @@ module objects
         {
             if(this.y <400 || this.y >1000 || this.x>720 ||this.x<0)
             {
-                console.log("changed x: "+position.x +" y: "+position.y);
+               // console.log("changed x: "+position.x +" y: "+position.y);
                 this.Reset(position);
             }
+        }       
+        public CheckBounds(): boolean 
+        {
+            if(this.y <400 || this.y >1000 || this.x>720 ||this.x<0)
+            {
+               console.log("changed x: "+this.x +" y: "+this.y);
+               return true;
+            }
+            return false;
         }       
         
         private _move():void
@@ -139,6 +148,7 @@ module objects
         
         public Reset(position:Vector2 =new Vector2(370,880)): void 
         {
+            
             this._verticalSpeed=0;
             this.velocity = new Vector2(0, this._verticalSpeed);
             this.angle= new Vector2(0,0);

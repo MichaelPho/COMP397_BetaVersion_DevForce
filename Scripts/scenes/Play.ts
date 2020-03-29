@@ -54,6 +54,7 @@ module scenes {
         }
 
         public Update(): void {
+           
             // setTimeout(() => {
             //     console.log("tesr 3 second");  
             //   },1000 );
@@ -69,6 +70,9 @@ module scenes {
          
           this.master.Update();
           this.bullet.Update();
+         
+
+
           this.enemy.forEach((en)=>{           
           en.Update();
         
@@ -77,33 +81,52 @@ module scenes {
             // managers.Collision.squaredRadiusCheck(this.master, en);
          });
        
-         
+         let locationX=this.bullet.x;
+
          this.checkgun();
 
          this.checkDamage();
-       
+         //locaction check
+    //    console.log("x: "+locationX);
+    //    console.log("x master: "+this.master.x);
          const onClick = (e: MouseEvent) =>
           {
             if(this.bullet.position.y==this.master.position.y) {
-                let x = this.master.x + 630 - e.clientX;
-                let y = this.master.y - e.clientY;
-                let l = Math.sqrt(x * x + y * y);
+                
+               
+                sessionStorage.X=e.clientX;
+                sessionStorage.Y=e.clientY;
+                sessionStorage.check=true;
 
-                // objects.Vector2.angle(new objects.Vector2(this.master.x,this.master.y),new objects.Vector2(this.master.x,this.master.y))
-                this.bullet.angle.x = x / l * -10;
-                this.bullet.angle.y = y / l * -10
-                    ;
-
-                this.bullet.StartRun();
-
-
+                
                 }   
 
 
             };
+            this.check=sessionStorage.check;
+            if(this.check){
+                this.addChild(this.bullet);
+                console.log("working : "+sessionStorage.X+" "+sessionStorage.Y);
+                let x = this.master.x- sessionStorage.X;
+                let y = this.master.y - sessionStorage.Y;
+                let l = Math.sqrt(x * x + y * y);
+                this.bullet.angle.x = x / l * -10;
+                this.bullet.angle.y = y / l * -10;
+                    
+                
+                this.bullet.StartRun();
+
+               
+                sessionStorage.clear();
+            }
 
           this.status.text=this.master.score+"/"+config.Game.FINISH_NUM;
-          
+          if(this.bullet.CheckBounds)
+          {
+            console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
+            this.bullet.x=1;
+            this.bullet.y=1;
+          }
 
 
           window.addEventListener('click', onClick);
@@ -116,14 +139,14 @@ module scenes {
                     en.Reset();
                     this.master.score += 1;
                     console.log("shoot small: " + this.master.score);
-
+                    this.removeChild(this.bullet);
                 }
             });
             if (managers.Collision.AABBCheck(this.bullet, this.enemy2)) {
                 this.enemy2.Reset();
                 this.master.score += 2;
                 console.log("shoot big" + this.master.score);
-
+                this.removeChild(this.bullet);
 
 
             }
@@ -153,7 +176,7 @@ module scenes {
                 i++;
             }
             this.addChild(this.master);
-            this.addChild(this.bullet);
+            
             this.addChild(this.status);
         }
         private Kill(a: boolean): boolean {
@@ -186,14 +209,14 @@ module scenes {
         }
         private checkDamage(): void {
             this.enemy.forEach((en) => {
-                if (managers.Collision.AABBCheck(this.master, en)) {
-                    this.master.damage += 5;
+                if (en.y==650) {
+                    this.master.damage += 1;
                     console.log("damage :" + this.master.damage);
-
+                    
                 }
             });
             if (managers.Collision.AABBCheck(this.master, this.enemy2)) {
-                this.master.damage += 10;
+                this.master.damage += 2;
                 console.log("damage :" + this.master.damage);
 
             }

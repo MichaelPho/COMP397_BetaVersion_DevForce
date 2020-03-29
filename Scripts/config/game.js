@@ -5,7 +5,7 @@ var config;
         function Game() {
         }
         Game.SCREEN_WIDTH = 720;
-        Game.SCREEN_HEIGHT = 630;
+        Game.SCREEN_HEIGHT = 1002;
         Game.FPS = 60; // 60 Frames per second
         Game.CLOUD_NUM = 4;
         Game.ENEMY_NUM = 5;

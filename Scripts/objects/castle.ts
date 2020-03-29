@@ -65,10 +65,11 @@ module objects
         private _move(): void
         {
             let center_x = (this.x)
-            var center_y = (this.y) 
-            var mouse_x = this.stage.mouseX;
-            var mouse_y =this.stage.mouseY;
-            var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+          
+            let center_y = (this.y) 
+            let mouse_x = this.stage.mouseX;
+            let mouse_y =this.stage.mouseY;
+            let radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
             this.angle= (radians * (180 / Math.PI)*-1)+180;
            
             this.rotation=this.angle;
