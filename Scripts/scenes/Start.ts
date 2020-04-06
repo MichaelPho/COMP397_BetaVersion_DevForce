@@ -46,7 +46,7 @@ module scenes
             this.addChild(this._startButton);
 
             this._startButton.on("click", ()=>{
-                config.Game.SCENE = scenes.State.PLAY2;
+                config.Game.SCENE = scenes.State.PLAY;
             });
 
         }

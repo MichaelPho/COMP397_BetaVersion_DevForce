@@ -219,12 +219,14 @@ var scenes;
                 if (managers.Collision.AABBCheck(_this.master, en)) {
                     _this.master.damage += 5;
                     console.log("damage :" + _this.master.damage);
+                    en.Reset();
                 }
             });
             this.enemy2.forEach(function (en) {
                 if (managers.Collision.AABBCheck(_this.master, en)) {
                     _this.master.damage += 10;
                     console.log("damage :" + _this.master.damage);
+                    en.Reset();
                 }
             });
             if (this.master.damage >= config.Game.DEATH_NUM) {

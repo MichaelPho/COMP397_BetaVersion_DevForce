@@ -285,14 +285,14 @@ module scenes
                 if(managers.Collision.AABBCheck(this.master, en)){
                     this.master.damage+=5;
                     console.log("damage :" +this.master.damage);
-                
+                    en.Reset();
                 }
                  });      
                  this.enemy2.forEach((en)=>{    
                     if(managers.Collision.AABBCheck(this.master, en)){
                         this.master.damage+=10;
                         console.log("damage :" +this.master.damage);
-                    
+                        en.Reset();
                     }
                      });      
                 
