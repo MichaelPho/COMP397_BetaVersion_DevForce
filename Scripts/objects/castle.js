@@ -37,10 +37,10 @@ var objects;
         });
         Object.defineProperty(Catsle.prototype, "score", {
             get: function () {
-                return this._damage;
+                return this._score;
             },
             set: function (newScore) {
-                this._damage = newScore;
+                this._score = newScore;
             },
             enumerable: true,
             configurable: true

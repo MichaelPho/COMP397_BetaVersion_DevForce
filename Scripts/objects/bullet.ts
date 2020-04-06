@@ -86,7 +86,7 @@ module objects
         //   //  let randomY = util.Mathf.RandomRange(-this.height * 3, -this.height);
         //     this.position = new Vector2(370,880);
         // }
-        protected _checkBounds(position:Vector2 =new Vector2(370,880)): void 
+        protected _checkBounds(position:Vector2 =new Vector2(0,1000)): void 
         {
             if(this.y <400 || this.y >1000 || this.x>720 ||this.x<0)
             {
@@ -98,9 +98,10 @@ module objects
         {
             if(this.y <400 || this.y >1000 || this.x>720 ||this.x<0)
             {
-               console.log("changed x: "+this.x +" y: "+this.y);
+                console.log("changed x: "+this.x +" y: "+this.y);
                return true;
             }
+           
             return false;
         }       
         
@@ -113,8 +114,9 @@ module objects
         }
 
 
-        public StartRun(): void{
+        public StartRun(position :Vector2= new Vector2(370,880)): void{
            
+            this.position = position
            this._verticalSpeed=-2;
            
            this.velocity= new Vector2(0,this._verticalSpeed)
@@ -125,7 +127,7 @@ module objects
         public Start(): void 
         {
             // curve bullet
-          
+            this.position =new Vector2(0,1000)
             //initializa
             this.type = enums.GameObjectType.ENEMY;
             // let it stop if needed
@@ -136,7 +138,7 @@ module objects
             this.Reset();
         }
         
-        public Update(position:Vector2 =new Vector2(370,880)): void 
+        public Update(position:Vector2 =new Vector2(0,1000)): void 
         { 
             
             this.velocity = new Vector2(0, this._verticalSpeed);
@@ -146,7 +148,7 @@ module objects
             
         }
         
-        public Reset(position:Vector2 =new Vector2(370,880)): void 
+        public Reset(position:Vector2 =new Vector2(0,1000)): void 
         {
             
             this._verticalSpeed=0;

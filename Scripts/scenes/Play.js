@@ -64,13 +64,15 @@ var scenes;
                 // managers.Collision.squaredRadiusCheck(this.master, en);
             });
             var locationX = this.bullet.x;
-            this.checkgun();
+            if (this.bullet.x != 0 && this.bullet.y != 1000) {
+                this.checkgun();
+            }
             this.checkDamage();
             //locaction check
             //    console.log("x: "+locationX);
             //    console.log("x master: "+this.master.x);
             var onClick = function (e) {
-                if (_this.bullet.position.y == _this.master.position.y) {
+                if (_this.bullet.position.y == 1000 && _this.bullet.position.x == 0) {
                     sessionStorage.X = e.clientX;
                     sessionStorage.Y = e.clientY;
                     sessionStorage.check = true;
@@ -88,29 +90,28 @@ var scenes;
                 this.bullet.StartRun();
                 sessionStorage.clear();
             }
+            //console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
             this.status.text = this.master.score + "/" + config.Game.FINISH_NUM;
-            if (this.bullet.CheckBounds) {
-                console.log("changed x: " + this.bullet.x + " y: " + this.bullet.y);
-                this.bullet.x = 1;
-                this.bullet.y = 1;
-            }
             window.addEventListener('click', onClick);
         };
         Play.prototype.checkgun = function () {
+            //  console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
             var _this = this;
             this.enemy.forEach(function (en) {
                 if (managers.Collision.AABBCheck(_this.bullet, en)) {
                     en.Reset();
                     _this.master.score += 1;
                     console.log("shoot small: " + _this.master.score);
-                    _this.removeChild(_this.bullet);
+                    console.log("changed x: " + _this.bullet.x + " y: " + _this.bullet.y);
+                    _this.bullet.Reset();
                 }
             });
             if (managers.Collision.AABBCheck(this.bullet, this.enemy2)) {
                 this.enemy2.Reset();
                 this.master.score += 2;
                 console.log("shoot big" + this.master.score);
-                this.removeChild(this.bullet);
+                console.log("changed x: " + this.bullet.x + " y: " + this.bullet.y);
+                this.bullet.Reset();
             }
             if (this.master.score >= config.Game.FINISH_NUM) {
                 config.Game.SCENE = scenes.State.PLAY2;

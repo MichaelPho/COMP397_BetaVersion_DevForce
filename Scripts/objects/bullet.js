@@ -84,7 +84,7 @@ var objects;
         //     this.position = new Vector2(370,880);
         // }
         bullet.prototype._checkBounds = function (position) {
-            if (position === void 0) { position = new objects.Vector2(370, 880); }
+            if (position === void 0) { position = new objects.Vector2(0, 1000); }
             if (this.y < 400 || this.y > 1000 || this.x > 720 || this.x < 0) {
                 // console.log("changed x: "+position.x +" y: "+position.y);
                 this.Reset(position);
@@ -101,7 +101,9 @@ var objects;
             //  this.position = Vector2.add(this.position, this.velocity);
             this.position = objects.Vector2.add(this.position, this.angle);
         };
-        bullet.prototype.StartRun = function () {
+        bullet.prototype.StartRun = function (position) {
+            if (position === void 0) { position = new objects.Vector2(370, 880); }
+            this.position = position;
             this._verticalSpeed = -2;
             this.velocity = new objects.Vector2(0, this._verticalSpeed);
             console.log("start run");
@@ -109,6 +111,7 @@ var objects;
         // PUBLIC METHODS
         bullet.prototype.Start = function () {
             // curve bullet
+            this.position = new objects.Vector2(0, 1000);
             //initializa
             this.type = enums.GameObjectType.ENEMY;
             // let it stop if needed
@@ -118,13 +121,13 @@ var objects;
             this.Reset();
         };
         bullet.prototype.Update = function (position) {
-            if (position === void 0) { position = new objects.Vector2(370, 880); }
+            if (position === void 0) { position = new objects.Vector2(0, 1000); }
             this.velocity = new objects.Vector2(0, this._verticalSpeed);
             this._move();
             this._checkBounds(position);
         };
         bullet.prototype.Reset = function (position) {
-            if (position === void 0) { position = new objects.Vector2(370, 880); }
+            if (position === void 0) { position = new objects.Vector2(0, 1000); }
             this._verticalSpeed = 0;
             this.velocity = new objects.Vector2(0, this._verticalSpeed);
             this.angle = new objects.Vector2(0, 0);

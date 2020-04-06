@@ -19,10 +19,10 @@ module objects
 
 
         get score():number{
-            return this._damage;
+            return this._score;
         }
         set score(newScore:number){
-            this._damage=newScore;
+            this._score=newScore;
         }
 
         // PUBLIC PROPERTIES

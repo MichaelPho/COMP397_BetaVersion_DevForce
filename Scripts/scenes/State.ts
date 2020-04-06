@@ -7,6 +7,9 @@ module scenes
         PLAY,
         END,
         PLAY2,
+        
+        PLAY3,
         NUM_OF_SCENES
+
     }
 }

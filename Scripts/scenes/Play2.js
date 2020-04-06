@@ -62,7 +62,7 @@ var scenes;
             //this.Kill(this.check);
             this.check = false;
             this.master.Update();
-            this.bullet.Update(new objects.Vector2(this.master.x, this.master.y));
+            this.bullet.Update();
             this.enemy.forEach(function (en) {
                 en.Update();
                 // managers.Collision.squaredRadiusCheck(this.master, en);
@@ -71,7 +71,9 @@ var scenes;
                 en.Update();
                 // managers.Collision.squaredRadiusCheck(this.master, en);
             });
-            this.checkgun();
+            if (this.bullet.x != 0 && this.bullet.y != 1000) {
+                this.checkgun();
+            }
             this.checkDamage();
             var moving = function (e) {
                 // PRESS LEFT ARROW
@@ -105,14 +107,14 @@ var scenes;
             };
             // this.bullet.start=true;
             var onClick = function (e) {
-                if (_this.bullet.position.y == _this.master.position.y) {
+                if (_this.bullet.position.y == 1000 && _this.bullet.position.x == 0) {
                     var x = _this.master.x - e.clientX;
                     var y = _this.master.y - e.clientY;
                     var l = Math.sqrt(x * x + y * y);
                     // objects.Vector2.angle(new objects.Vector2(this.master.x,this.master.y),new objects.Vector2(this.master.x,this.master.y))
                     _this.bullet.angle.x = x / l * -10;
                     _this.bullet.angle.y = y / l * -10;
-                    _this.bullet.StartRun();
+                    _this.bullet.StartRun(new objects.Vector2(_this.master.x, _this.master.y));
                 }
             };
             this.status.text = this.master.score + "/" + config.Game.FINISH_NUM2;
@@ -129,6 +131,7 @@ var scenes;
                     en.Reset();
                     _this.master.score += 1;
                     console.log("shoot small: " + _this.master.score);
+                    _this.bullet.Reset();
                 }
             });
             this.enemy2.forEach(function (en) {
@@ -136,6 +139,7 @@ var scenes;
                     en.Reset();
                     _this.master.score += 2;
                     console.log("shoot big" + _this.master.score);
+                    _this.bullet.Reset();
                 }
             });
             if (this.master.score >= config.Game.FINISH_NUM2) {

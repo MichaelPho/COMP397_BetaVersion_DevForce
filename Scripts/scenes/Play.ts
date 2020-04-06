@@ -82,16 +82,16 @@ module scenes {
          });
        
          let locationX=this.bullet.x;
-
+         if(this.bullet.x!=0 &&this.bullet.y!=1000){
          this.checkgun();
-
+         }
          this.checkDamage();
          //locaction check
     //    console.log("x: "+locationX);
     //    console.log("x master: "+this.master.x);
          const onClick = (e: MouseEvent) =>
           {
-            if(this.bullet.position.y==this.master.position.y) {
+            if(this.bullet.position.y==1000 && this.bullet.position.x==0) {
                 
                
                 sessionStorage.X=e.clientX;
@@ -119,34 +119,33 @@ module scenes {
                
                 sessionStorage.clear();
             }
-
+            //console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
           this.status.text=this.master.score+"/"+config.Game.FINISH_NUM;
-          if(this.bullet.CheckBounds)
-          {
-            console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
-            this.bullet.x=1;
-            this.bullet.y=1;
-          }
-
+          
 
           window.addEventListener('click', onClick);
             
 
         }
         checkgun() {
+          //  console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
+           
             this.enemy.forEach((en) => {
                 if (managers.Collision.AABBCheck(this.bullet, en)) {
                     en.Reset();
                     this.master.score += 1;
                     console.log("shoot small: " + this.master.score);
-                    this.removeChild(this.bullet);
+                    console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
+                    this.bullet.Reset();
+
                 }
             });
             if (managers.Collision.AABBCheck(this.bullet, this.enemy2)) {
                 this.enemy2.Reset();
                 this.master.score += 2;
                 console.log("shoot big" + this.master.score);
-                this.removeChild(this.bullet);
+                console.log("changed x: "+this.bullet.x +" y: "+this.bullet.y);
+                this.bullet.Reset();
 
 
             }
@@ -154,7 +153,7 @@ module scenes {
             if (this.master.score >= config.Game.FINISH_NUM) {
                 config.Game.SCENE = scenes.State.PLAY2;
             }
-
+        
         }
 
 

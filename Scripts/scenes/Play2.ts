@@ -85,7 +85,7 @@ module scenes
          this.check = false;
        
          this.master.Update();
-         this.bullet.Update(new objects.Vector2(this.master.x,this.master.y));
+         this.bullet.Update();
          this.enemy.forEach((en) => {
              en.Update();
 
@@ -104,7 +104,9 @@ module scenes
 
 
 
-         this.checkgun();
+           if(this.bullet.x!=0 &&this.bullet.y!=1000){
+            this.checkgun();
+            }
 
          this.checkDamage();
 
@@ -146,7 +148,8 @@ module scenes
         
              // this.bullet.start=true;
              const onClick = (e: MouseEvent) => {
-                 if(this.bullet.position.y==this.master.position.y) {
+                 
+                if(this.bullet.position.y==1000 && this.bullet.position.x==0) {
                  let x = this.master.x - e.clientX;
                  let y = this.master.y - e.clientY;
                  let l = Math.sqrt(x * x + y * y);
@@ -156,7 +159,7 @@ module scenes
                  this.bullet.angle.y = y / l * -10
                      ;
 
-                 this.bullet.StartRun();
+                 this.bullet.StartRun(new objects.Vector2(this.master.x,this.master.y));
 
 
                  }   
@@ -182,7 +185,7 @@ module scenes
                     en.Reset();
                     this.master.score+=1;
                     console.log("shoot small: "+this.master.score);
-                    
+                    this.bullet.Reset();
                 }
                  });      
                  this.enemy2.forEach((en)=>{    
@@ -190,7 +193,7 @@ module scenes
                         en.Reset();
                         this.master.score+=2;
                         console.log("shoot big"+this.master.score);
-                        
+                        this.bullet.Reset();
                     }
                      });     
                 
@@ -244,7 +247,7 @@ module scenes
             this.addChild(this.master);
             this.addChild(this.bullet);
             this.addChild(this.status);
-        }
+        }}
         private Kill(a:boolean):boolean {
             
             

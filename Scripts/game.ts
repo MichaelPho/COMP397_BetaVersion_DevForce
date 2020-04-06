@@ -114,6 +114,7 @@ let Game = (function(){
                     console.log("switch to Play Scene level 2");
                     currentScene = new scenes.Play2(); 
                     break;
+  
         }
 
         currentSceneState = config.Game.SCENE;
