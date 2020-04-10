@@ -281,6 +281,7 @@ module scenes
         
         }
         private checkDamage():void {
+            console.log("Start Checking" );
             this.enemy.forEach((en)=>{    
                 if(managers.Collision.AABBCheck(this.master, en)){
                     this.master.damage+=5;
@@ -289,7 +290,7 @@ module scenes
                 }
                  });      
                  this.enemy2.forEach((en)=>{    
-                    if(managers.Collision.AABBCheck(this.master, en)){
+                    if(managers.Collision.squaredRadiusCheck(this.master, en)){
                         this.master.damage+=10;
                         console.log("damage :" +this.master.damage);
                         en.Reset();

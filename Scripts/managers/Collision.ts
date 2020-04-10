@@ -15,12 +15,12 @@ module managers
                         {
                             case enums.GameObjectType.ISLAND:
                                 console.log("Collision with Island!");
-                                let yaySound = createjs.Sound.play("yay");
+                                let yaySound = createjs.Sound.play("");
                                 yaySound.volume = 0.2;
                                 break;
                             case enums.GameObjectType.CLOUD:
                                 console.log("Collision with Cloud!");
-                                let thunderSound = createjs.Sound.play("thunder");
+                                let thunderSound = createjs.Sound.play("");
                                 thunderSound.volume = 0.2;
                                 break;
                         }
@@ -40,8 +40,8 @@ module managers
             let object1Offset = (!object1.isCentered) ? new objects.Vector2(0, 0) : new objects.Vector2(object1.halfWidth, object1.halfHeight);
             let object2Offset = (!object2.isCentered) ? new objects.Vector2(0, 0) : new objects.Vector2(object2.halfWidth, object2.halfHeight);
 
-            let object1TopLeft = new objects.Vector2(object1.position.x - object1Offset.x, object1.position.y - object1Offset.y);
-            let object2TopLeft = new objects.Vector2(object2.position.x - object2Offset.x, object2.position.y - object2Offset.y);
+            let object1TopLeft = new objects.Vector2(object1.x - object1Offset.x, object1.position.y - object1Offset.y);
+            let object2TopLeft = new objects.Vector2(object2.x - object2Offset.x, object2.position.y - object2Offset.y);
 
             // AABB Collision Detection
         if (object1TopLeft.x < object2TopLeft.x + object2.width &&

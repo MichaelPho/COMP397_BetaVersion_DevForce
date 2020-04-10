@@ -9,6 +9,7 @@ module scenes
         PLAY2,
         
         PLAY3,
+        BOSS,
         NUM_OF_SCENES
 
     }

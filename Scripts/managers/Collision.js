@@ -12,12 +12,12 @@ var managers;
                     switch (object2.type) {
                         case enums.GameObjectType.ISLAND:
                             console.log("Collision with Island!");
-                            var yaySound = createjs.Sound.play("yay");
+                            var yaySound = createjs.Sound.play("");
                             yaySound.volume = 0.2;
                             break;
                         case enums.GameObjectType.CLOUD:
                             console.log("Collision with Cloud!");
-                            var thunderSound = createjs.Sound.play("thunder");
+                            var thunderSound = createjs.Sound.play("");
                             thunderSound.volume = 0.2;
                             break;
                     }
@@ -33,8 +33,8 @@ var managers;
         Collision.AABBCheck = function (object1, object2) {
             var object1Offset = (!object1.isCentered) ? new objects.Vector2(0, 0) : new objects.Vector2(object1.halfWidth, object1.halfHeight);
             var object2Offset = (!object2.isCentered) ? new objects.Vector2(0, 0) : new objects.Vector2(object2.halfWidth, object2.halfHeight);
-            var object1TopLeft = new objects.Vector2(object1.position.x - object1Offset.x, object1.position.y - object1Offset.y);
-            var object2TopLeft = new objects.Vector2(object2.position.x - object2Offset.x, object2.position.y - object2Offset.y);
+            var object1TopLeft = new objects.Vector2(object1.x - object1Offset.x, object1.position.y - object1Offset.y);
+            var object2TopLeft = new objects.Vector2(object2.x - object2Offset.x, object2.position.y - object2Offset.y);
             // AABB Collision Detection
             if (object1TopLeft.x < object2TopLeft.x + object2.width &&
                 object1TopLeft.x + object1.width > object2TopLeft.x &&

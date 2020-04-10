@@ -25,8 +25,11 @@ var Game = (function () {
         { id: "platform", src: "./Assets/images/round1.png" },
         { id: "background", src: "./Assets/images/background.jpg" },
         { id: "background2", src: "./Assets/images/background2.jpg" },
+        { id: "background3", src: "./Assets/images/background3.jpg" },
+        { id: "boss", src: "./Assets/images/bossbackground.jpg" },
         { id: "enemy", src: "./Assets/images/enemy2.png" },
         { id: "master", src: "./Assets/images/master.png" },
+        { id: "enemy3", src: "./Assets/images/enemy3.jpg" },
     ];
     function Preload() {
         assets = new createjs.LoadQueue(); // asset container
@@ -87,6 +90,14 @@ var Game = (function () {
             case scenes.State.PLAY2:
                 console.log("switch to Play Scene level 2");
                 currentScene = new scenes.Play2();
+                break;
+            case scenes.State.PLAY3:
+                console.log("switch to Play Scene level 3");
+                currentScene = new scenes.Play3();
+                break;
+            case scenes.State.BOSS:
+                console.log("switch to Play Scene Boss level");
+                // currentScene = new scenes.Play3();
                 break;
         }
         currentSceneState = config.Game.SCENE;

@@ -14,11 +14,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Play2 = /** @class */ (function (_super) {
-        __extends(Play2, _super);
+    var Play3 = /** @class */ (function (_super) {
+        __extends(Play3, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Play2() {
+        function Play3() {
             var _this = _super.call(this) || this;
             _this.check = true;
             _this.Start();
@@ -27,8 +27,8 @@ var scenes;
         // PRIVATE METHODS
         // PUBLIC METHODS
         //initialize and instatiate
-        Play2.prototype.Start = function () {
-            this.platform = new objects.platform(config.Game.ASSETS.getResult("background2"));
+        Play3.prototype.Start = function () {
+            this.platform = new objects.platform(config.Game.ASSETS.getResult("background3"));
             this.bullet = new objects.bullet();
             this.status = new objects.Label("0/" + config.Game.FINISH_NUM2, "40px", "Consolas", "#FFFF00", config.Game.SCREEN_WIDTH / 2, 30, true);
             //  this._plane = new objects.Plane();
@@ -40,7 +40,7 @@ var scenes;
             var temp;
             // instantiating CLOUD_NUM clouds
             for (var index = 0; index < config.Game.ENEMY_NUM2; index++) {
-                temp = new objects.enemy();
+                temp = new objects.enemy3();
                 this.enemy.push(temp);
             }
             var temp2;
@@ -50,7 +50,7 @@ var scenes;
             }
             this.Main();
         };
-        Play2.prototype.Update = function () {
+        Play3.prototype.Update = function () {
             // setTimeout(() => {
             //     console.log("tesr 3 second");  
             //   },1000 );
@@ -124,14 +124,21 @@ var scenes;
             window.addEventListener('click', onClick);
             window.addEventListener('keydown', moving);
         };
-        Play2.prototype.checkgun = function () {
+        Play3.prototype.checkgun = function () {
             var _this = this;
             this.enemy.forEach(function (en) {
-                if (managers.Collision.AABBCheck(_this.bullet, en)) {
-                    en.Reset();
-                    _this.master.score += 1;
-                    console.log("shoot small: " + _this.master.score);
-                    _this.bullet.Reset();
+                if (managers.Collision.AABBCheck(en, _this.bullet)) {
+                    if (en.Health == 0) {
+                        en.Reset();
+                        _this.master.score += 1;
+                        console.log("shoot small: " + _this.master.score);
+                        _this.bullet.Reset();
+                    }
+                    else {
+                        _this.bullet.Reset();
+                        console.log(en.Health + " is health");
+                        en.Health -= 1;
+                    }
                 }
             });
             this.enemy2.forEach(function (en) {
@@ -146,7 +153,7 @@ var scenes;
                 config.Game.SCENE = scenes.State.END;
             }
         };
-        Play2.prototype.Main = function () {
+        Play3.prototype.Main = function () {
             var _this = this;
             this.addChild(this.platform);
             //  this.addChild(this._plane);
@@ -192,7 +199,7 @@ var scenes;
                 _loop_1(en);
             }
         };
-        Play2.prototype.Kill = function (a) {
+        Play3.prototype.Kill = function (a) {
             if (a) {
                 this.enemy.forEach(function (element) {
                     if (element.y > 400) {
@@ -213,7 +220,7 @@ var scenes;
                 return true;
             }
         };
-        Play2.prototype.checkDamage = function () {
+        Play3.prototype.checkDamage = function () {
             var _this = this;
             console.log("Start Checking");
             this.enemy.forEach(function (en) {
@@ -234,8 +241,8 @@ var scenes;
                 config.Game.SCENE = scenes.State.END;
             }
         };
-        return Play2;
+        return Play3;
     }(objects.Scene));
-    scenes.Play2 = Play2;
+    scenes.Play3 = Play3;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=Play2.js.map
+//# sourceMappingURL=Play3.js.map

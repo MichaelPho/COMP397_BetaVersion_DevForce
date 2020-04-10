@@ -1,18 +1,24 @@
 module objects
 {
-    export class enemy extends GameObject
+    export class enemy3 extends GameObject
     {
         // PRIVATE INSTANCE MEMBERS
         private _verticalSpeed?:number;
         private _horizontalSpeed?:number;
-      
+        private _health?:number =3;
 
         // PUBLIC PROPERTIES
+        public get Health(): number {
+            return this._health;
+        }
+        public set Health(value: number) {
+            this._health = value;
+        }
 
         // CONSTRUCTOR
         constructor()
         {
-            super(config.Game.ASSETS.getResult("enemy"), new Vector2(), true);
+            super(config.Game.ASSETS.getResult("enemy3"), new Vector2(), true);
             this.Start();
         }
 
@@ -20,9 +26,11 @@ module objects
 
         protected _checkBounds(): void 
         {
-            if(this.y >= config.Game.SCREEN_HEIGHT + this.height)
+            if(this.y >= config.Game.SCREEN_HEIGHT/2 + this.height)
             {
-                this.Reset();
+                this.position = new Vector2(this.x, config.Game.SCREEN_HEIGHT/2 + this.height);
+              
+                console.log("x "+this.x +" y : "+this.y)
             }
         }       
         
@@ -56,6 +64,7 @@ module objects
         
         public Reset(): void 
         {
+            this.Health=3;
             let randomX = util.Mathf.RandomRange(this.halfWidth, config.Game.SCREEN_WIDTH - this.halfWidth);
           //  let randomY = util.Mathf.RandomRange(-this.height * 3, -this.height);
             this.position = new Vector2(randomX,0);

@@ -9,7 +9,7 @@ module scenes {
         private check?: boolean = true;
         private status: objects.Label;
         private enemy: Array<objects.enemy>;
-
+       
         // PUBLIC PROPERTIES
 
         // CONSTRUCTOR
@@ -26,6 +26,7 @@ module scenes {
         //initialize and instatiate
         public Start(): void {
 
+           
             this.platform = new objects.platform();
             this.bullet = new objects.bullet();
             this.status = new objects.Label("0/" + config.Game.FINISH_NUM, "40px", "Consolas", "#FFFF00", config.Game.SCREEN_WIDTH / 2, 30, true);
@@ -47,7 +48,7 @@ module scenes {
 
             }
 
-
+       
 
 
             this.Main();
@@ -175,7 +176,6 @@ module scenes {
                 i++;
             }
             this.addChild(this.master);
-            
             this.addChild(this.status);
         }
         private Kill(a: boolean): boolean {
