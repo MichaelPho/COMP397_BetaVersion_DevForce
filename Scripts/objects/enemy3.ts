@@ -6,6 +6,7 @@ module objects
         private _verticalSpeed?:number;
         private _horizontalSpeed?:number;
         private _health?:number =3;
+        private _enemybullet?: objects.bulletenemy;
 
         // PUBLIC PROPERTIES
         public get Health(): number {
@@ -13,6 +14,12 @@ module objects
         }
         public set Health(value: number) {
             this._health = value;
+        }
+        public get enemyBullet(): objects.bulletenemy {
+            return this._enemybullet;
+        }
+        public set enemyBullet(value: objects.bulletenemy) {
+            this._enemybullet = value;
         }
 
         // CONSTRUCTOR
@@ -26,14 +33,24 @@ module objects
 
         protected _checkBounds(): void 
         {
-            if(this.y >= config.Game.SCREEN_HEIGHT/2 + this.height)
+            if(this.y >= config.Game.SCREEN_HEIGHT/2 -50)
             {
-                this.position = new Vector2(this.x, config.Game.SCREEN_HEIGHT/2 + this.height);
+                this.position = new Vector2(this.x, config.Game.SCREEN_HEIGHT/2 -50);
               
-                console.log("x "+this.x +" y : "+this.y)
+             
             }
         }       
-        
+        public CheckBounds(): boolean 
+        {
+           
+            if(this.y >= config.Game.SCREEN_HEIGHT/2 - 50)
+            {
+             
+                return true
+            }
+           
+            return false;
+        }       
         private _move():void
         {
             this.position = Vector2.add(this.position, this.velocity);
@@ -47,6 +64,8 @@ module objects
         // PUBLIC METHODS
         public Start(): void 
         {
+            this.enemyBullet= new objects.bulletenemy();
+            
             this.type = enums.GameObjectType.ENEMY;
             // let it stop if needed
            this._verticalSpeed=0;

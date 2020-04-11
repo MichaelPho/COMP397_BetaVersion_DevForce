@@ -34,12 +34,27 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(enemy3.prototype, "enemyBullet", {
+            get: function () {
+                return this._enemybullet;
+            },
+            set: function (value) {
+                this._enemybullet = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // PRIVATE METHODS
         enemy3.prototype._checkBounds = function () {
-            if (this.y >= config.Game.SCREEN_HEIGHT / 2 + this.height) {
-                this.position = new objects.Vector2(this.x, config.Game.SCREEN_HEIGHT / 2 + this.height);
-                console.log("x " + this.x + " y : " + this.y);
+            if (this.y >= config.Game.SCREEN_HEIGHT / 2 - 50) {
+                this.position = new objects.Vector2(this.x, config.Game.SCREEN_HEIGHT / 2 - 50);
             }
+        };
+        enemy3.prototype.CheckBounds = function () {
+            if (this.y >= config.Game.SCREEN_HEIGHT / 2 - 50) {
+                return true;
+            }
+            return false;
         };
         enemy3.prototype._move = function () {
             this.position = objects.Vector2.add(this.position, this.velocity);
@@ -51,6 +66,7 @@ var objects;
         };
         // PUBLIC METHODS
         enemy3.prototype.Start = function () {
+            this.enemyBullet = new objects.bulletenemy();
             this.type = enums.GameObjectType.ENEMY;
             // let it stop if needed
             this._verticalSpeed = 0;

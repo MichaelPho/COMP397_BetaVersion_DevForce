@@ -65,6 +65,26 @@ var scenes;
             this.bullet.Update();
             this.enemy.forEach(function (en) {
                 en.Update();
+                if (en.CheckBounds()) {
+                    en.enemyBullet.Update();
+                    //console.log("bullet with"+ en.enemyBullet.x+ " y" + en.enemyBullet.y)   ;
+                    // console.log("enemy with"+ en.x+ " y" + en.y)   ;
+                    if (en.enemyBullet.y == 0) {
+                        console.log("success");
+                        var x = en.x - _this.master.x;
+                        var y = en.y - _this.master.y;
+                        var l = Math.sqrt(x * x + y * y);
+                        // objects.Vector2.angle(new objects.Vector2(this.master.x,this.master.y),new objects.Vector2(this.master.x,this.master.y))
+                        en.enemyBullet.angle.x = x / l * -2;
+                        en.enemyBullet.angle.y = y / l * -2;
+                        _this.addChild(en.enemyBullet);
+                        en.enemyBullet.StartRun(new objects.Vector2(en.x, en.y));
+                    }
+                    else if (en.enemyBullet.CheckBounds()) {
+                        console.log("enemy bullet gone");
+                        _this.removeChild(en.enemyBullet);
+                    }
+                }
                 // managers.Collision.squaredRadiusCheck(this.master, en);
             });
             this.enemy2.forEach(function (en) {
@@ -127,6 +147,9 @@ var scenes;
         Play3.prototype.checkgun = function () {
             var _this = this;
             this.enemy.forEach(function (en) {
+                if (managers.Collision.AABBCheck(en.enemyBullet, _this.bullet)) {
+                    _this.removeChild(en.enemyBullet);
+                }
                 if (managers.Collision.AABBCheck(en, _this.bullet)) {
                     if (en.Health == 0) {
                         en.Reset();
@@ -162,7 +185,7 @@ var scenes;
                 setTimeout(function () {
                     en.StartRun();
                     _this.addChild(en);
-                    console.log("enemy out");
+                    console.log("enemy shooting out");
                 }, i * 5000);
                 i++;
                 var _loop_2 = function (en_1) {
@@ -172,18 +195,6 @@ var scenes;
                         console.log("enemy out");
                     }, i * 8000);
                     i++;
-                    var _loop_3 = function (en_2) {
-                        setTimeout(function () {
-                            en_2.StartRun();
-                            _this.addChild(en_2);
-                            console.log("enemy out");
-                        }, i * 10000);
-                        i++;
-                    };
-                    for (var _i = 0, _a = this_1.enemy2; _i < _a.length; _i++) {
-                        var en_2 = _a[_i];
-                        _loop_3(en_2);
-                    }
                 };
                 for (var _i = 0, _a = this_1.enemy2; _i < _a.length; _i++) {
                     var en_1 = _a[_i];
@@ -222,12 +233,16 @@ var scenes;
         };
         Play3.prototype.checkDamage = function () {
             var _this = this;
-            console.log("Start Checking");
             this.enemy.forEach(function (en) {
                 if (managers.Collision.AABBCheck(_this.master, en)) {
                     _this.master.damage += 5;
                     console.log("damage :" + _this.master.damage);
                     en.Reset();
+                }
+                if (managers.Collision.AABBCheck(_this.master, en.enemyBullet)) {
+                    _this.removeChild(en.enemyBullet);
+                    _this.master.damage += 2;
+                    console.log("damage from enemy bullet :" + _this.master.damage);
                 }
             });
             this.enemy2.forEach(function (en) {

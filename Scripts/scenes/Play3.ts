@@ -29,6 +29,8 @@ module scenes {
             this.platform = new objects.platform(config.Game.ASSETS.getResult("background3"));
 
             this.bullet = new objects.bullet();
+            
+            
             this.status = new objects.Label("0/" + config.Game.FINISH_NUM2, "40px", "Consolas", "#FFFF00", config.Game.SCREEN_WIDTH / 2, 30, true);
 
             //  this._plane = new objects.Plane();
@@ -73,7 +75,7 @@ module scenes {
 
             //   this._plane.Update();
 
-
+            
 
 
             //this.Kill(this.check);
@@ -83,8 +85,34 @@ module scenes {
             this.bullet.Update();
             this.enemy.forEach((en) => {
                 en.Update();
+                if(en.CheckBounds())
+                {
+                    
+                    en.enemyBullet.Update();
+                    //console.log("bullet with"+ en.enemyBullet.x+ " y" + en.enemyBullet.y)   ;
+                   // console.log("enemy with"+ en.x+ " y" + en.y)   ;
+                    if (en.enemyBullet.y==0) {
+                       console.log("success");
+                        let x = en.x - this.master.x ;
+                        let y = en.y - this.master.y ;
+                        let l = Math.sqrt(x * x + y * y);
+    
+                        // objects.Vector2.angle(new objects.Vector2(this.master.x,this.master.y),new objects.Vector2(this.master.x,this.master.y))
+                        en.enemyBullet.angle.x = x / l * -2;
+                        en.enemyBullet.angle.y = y / l * -2;
+                        this.addChild(en.enemyBullet);
+                        en.enemyBullet.StartRun(new objects.Vector2(en.x, en.y));
 
-
+                        
+                       
+                       
+                    }
+                    else if(en.enemyBullet.CheckBounds())
+                    {
+                        console.log("enemy bullet gone");
+                        this.removeChild(en.enemyBullet);
+                    }
+                }
 
                 // managers.Collision.squaredRadiusCheck(this.master, en);
             });
@@ -121,8 +149,6 @@ module scenes {
                     if (this.bullet.position.y == this.master.position.y) { this.bullet.position.x += 0.03; }
                     this.master.x += 0.03;
                     console.log("go right ");
-
-
                 }
                 // // PRESS DOWN ARROW
                 // else if (e.keyCode == 40) {
@@ -174,6 +200,9 @@ module scenes {
         }
         checkgun() {
             this.enemy.forEach((en) => {
+                if(managers.Collision.AABBCheck(en.enemyBullet,this.bullet)){
+                    this.removeChild(en.enemyBullet);
+                }
                 if (managers.Collision.AABBCheck( en,this.bullet)) {
                     if(en.Health==0){
                     en.Reset();
@@ -219,7 +248,7 @@ module scenes {
 
                     en.StartRun();
                     this.addChild(en);
-                    console.log("enemy out");
+                    console.log("enemy shooting out");
                 }, i * 5000);
                 i++;
                 for (const en of this.enemy2) {
@@ -230,16 +259,7 @@ module scenes {
                         console.log("enemy out");
                     }, i * 8000);
                     i++;
-                    for (const en of this.enemy2) {
-                        setTimeout(() => {
-
-                            en.StartRun();
-                            this.addChild(en);
-                            console.log("enemy out");
-                        }, i * 10000);
-                        i++;
-                    }
-
+                   
                 }
                 this.addChild(this.master);
                 this.addChild(this.bullet);
@@ -277,12 +297,18 @@ module scenes {
 
         }
         private checkDamage(): void {
-            console.log("Start Checking");
+           
             this.enemy.forEach((en) => {
+             
                 if (managers.Collision.AABBCheck(this.master, en)) {
                     this.master.damage += 5;
                     console.log("damage :" + this.master.damage);
                     en.Reset();
+                }
+                if(managers.Collision.AABBCheck(this.master,en.enemyBullet)){
+                    this.removeChild(en.enemyBullet);
+                    this.master.damage += 2;
+                    console.log("damage from enemy bullet :" + this.master.damage);
                 }
             });
             this.enemy2.forEach((en) => {

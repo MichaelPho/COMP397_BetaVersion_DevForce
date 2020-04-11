@@ -14,48 +14,49 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Start = /** @class */ (function (_super) {
-        __extends(Start, _super);
+    var Level = /** @class */ (function (_super) {
+        __extends(Level, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Start() {
+        function Level() {
             var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        Start.prototype.Start = function () {
+        Level.prototype.Start = function () {
             //instantiate a new Text object
-            this._welcomeLabel = new objects.Label("The Game", "80px", "Consolas", "#FFFF00", 370, 180, true);
+            this._welcomeLabel = new objects.Label("Choose level", "80px", "Consolas", "#FFFF00", 370, 180, true);
             // buttons
-            this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 370, 430, true);
-            this._startButton2 = new objects.Button(config.Game.ASSETS.getResult("instruction"), 370, 530, true);
-            this._startButton3 = new objects.Button(config.Game.ASSETS.getResult("credit"), 370, 630, true);
+            this._startButton = new objects.Button(config.Game.ASSETS.getResult("level1pic"), 370, 400, true);
+            this._startButton2 = new objects.Button(config.Game.ASSETS.getResult("level2pic"), 370, 530, true);
+            this._startButton3 = new objects.Button(config.Game.ASSETS.getResult("level3pic"), 370, 660, true);
+            //this._startButton3 = new objects.Button(config.Game.ASSETS.getResult("bosslevel"), 370, 790, true);
             this._ocean = new objects.background();
             this.Main();
         };
-        Start.prototype.Update = function () {
+        Level.prototype.Update = function () {
             this._ocean.Update();
         };
-        Start.prototype.Main = function () {
+        Level.prototype.Main = function () {
             this.addChild(this._ocean);
             this.addChild(this._welcomeLabel);
             this.addChild(this._startButton);
             this.addChild(this._startButton2);
             this.addChild(this._startButton3);
             this._startButton.on("click", function () {
-                config.Game.SCENE = scenes.State.LEVEL;
+                config.Game.SCENE = scenes.State.PLAY;
             });
             this._startButton2.on("click", function () {
-                // config.Game.SCENE = scenes.State.PLAY2;
+                config.Game.SCENE = scenes.State.PLAY2;
             });
             this._startButton3.on("click", function () {
-                // config.Game.SCENE = scenes.State.PLAY3;
+                config.Game.SCENE = scenes.State.PLAY3;
             });
         };
-        return Start;
+        return Level;
     }(objects.Scene));
-    scenes.Start = Start;
+    scenes.Level = Level;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=Start.js.map
+//# sourceMappingURL=Level.js.map

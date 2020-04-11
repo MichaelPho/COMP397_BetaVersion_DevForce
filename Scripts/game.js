@@ -12,9 +12,9 @@ var Game = (function () {
         { id: "button", src: "./Assets/images/button.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
-        { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "backButton", src: "./Assets/images/backButton.png" },
+        { id: "startButton", src: "./Assets/images/start.png" },
+        { id: "nextButton", src: "./Assets/images/reset.png" },
+        { id: "backButton", src: "./Assets/images/reset.png" },
         { id: "ocean", src: "./Assets/images/ocean.gif" },
         { id: "plane", src: "./Assets/images/plane.png" },
         { id: "island", src: "./Assets/images/island.png" },
@@ -29,7 +29,13 @@ var Game = (function () {
         { id: "boss", src: "./Assets/images/bossbackground.jpg" },
         { id: "enemy", src: "./Assets/images/enemy2.png" },
         { id: "master", src: "./Assets/images/master.png" },
-        { id: "enemy3", src: "./Assets/images/enemy3.jpg" },
+        { id: "enemy3", src: "./Assets/images/enemy3.png" },
+        { id: "level1pic", src: "./Assets/images/level1.png" },
+        { id: "level2pic", src: "./Assets/images/level2.png" },
+        { id: "level3pic", src: "./Assets/images/level3.png" },
+        { id: "bosslevel", src: "./Assets/images/boss.png" },
+        { id: "instruction", src: "./Assets/images/instruction.png" },
+        { id: "credit", src: "./Assets/images/credit.png" },
     ];
     function Preload() {
         assets = new createjs.LoadQueue(); // asset container
@@ -78,6 +84,10 @@ var Game = (function () {
             case scenes.State.START:
                 console.log("switch to Start Scene");
                 currentScene = new scenes.Start();
+                break;
+            case scenes.State.LEVEL:
+                console.log("switch to Level Scene");
+                currentScene = new scenes.Level();
                 break;
             case scenes.State.PLAY:
                 console.log("switch to Play Scene");
