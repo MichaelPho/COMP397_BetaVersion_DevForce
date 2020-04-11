@@ -18,8 +18,9 @@ var objects;
         __extends(background, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function background() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("background")) || this;
+        function background(img) {
+            if (img === void 0) { img = config.Game.ASSETS.getResult("background"); }
+            var _this = _super.call(this, img) || this;
             _this.Start();
             return _this;
         }

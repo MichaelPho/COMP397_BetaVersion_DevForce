@@ -41,6 +41,9 @@ let Game = (function () {
             { id: "level3pic", src: "./Assets/images/level3.png" },
             { id: "bosslevel", src: "./Assets/images/boss.png" },
             { id: "instruction", src: "./Assets/images/instruction.png" },
+            { id: "levelbackground", src: "./Assets/images/levelscreen.jpg" },
+            
+            { id: "credit", src: "./Assets/images/credit.png" }
         ];
 
     function Preload(): void {

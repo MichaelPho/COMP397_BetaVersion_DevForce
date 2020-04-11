@@ -8,9 +8,9 @@ module objects
         // PUBLIC PROPERTIES
 
         // CONSTRUCTOR
-        constructor()
+        constructor(img: Object =config.Game.ASSETS.getResult("background"))
         {
-            super(config.Game.ASSETS.getResult("background"));
+            super(img);
 
             this.Start();
         }

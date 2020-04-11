@@ -31,7 +31,8 @@ module scenes
             this._startButton2 = new objects.Button(config.Game.ASSETS.getResult("level2pic"), 370, 530, true);
             this._startButton3 = new objects.Button(config.Game.ASSETS.getResult("level3pic"), 370, 660, true);
              //this._startButton3 = new objects.Button(config.Game.ASSETS.getResult("bosslevel"), 370, 790, true);
-             this._ocean = new objects.background();
+             this._ocean = new objects.background(config.Game.ASSETS.getResult("levelbackground"));
+             
             this.Main();
         }        
         

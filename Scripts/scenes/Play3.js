@@ -153,8 +153,9 @@ var scenes;
                 if (managers.Collision.AABBCheck(en, _this.bullet)) {
                     if (en.Health == 0) {
                         en.Reset();
-                        _this.master.score += 1;
-                        console.log("shoot small: " + _this.master.score);
+                        _this.master.score += 4;
+                        console.log("shoot enemy level2: " + _this.master.score);
+                        _this.removeChild(en.enemyBullet);
                         _this.bullet.Reset();
                     }
                     else {
@@ -168,7 +169,7 @@ var scenes;
                 if (managers.Collision.AABBCheck(_this.bullet, en)) {
                     en.Reset();
                     _this.master.score += 2;
-                    console.log("shoot big" + _this.master.score);
+                    console.log("shoot enemy level1" + _this.master.score);
                     _this.bullet.Reset();
                 }
             });

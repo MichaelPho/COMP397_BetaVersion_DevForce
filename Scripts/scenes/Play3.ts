@@ -206,8 +206,9 @@ module scenes {
                 if (managers.Collision.AABBCheck( en,this.bullet)) {
                     if(en.Health==0){
                     en.Reset();
-                    this.master.score += 1;
-                    console.log("shoot small: " + this.master.score);
+                    this.master.score += 4;
+                    console.log("shoot enemy level2: " + this.master.score);
+                    this.removeChild(en.enemyBullet);
                     this.bullet.Reset();}
                     else{
                         this.bullet.Reset();
@@ -220,7 +221,7 @@ module scenes {
                 if (managers.Collision.AABBCheck(this.bullet, en)) {
                     en.Reset();
                     this.master.score += 2;
-                    console.log("shoot big" + this.master.score);
+                    console.log("shoot enemy level1" + this.master.score);
                     this.bullet.Reset();
                 }
             });
